@@ -83,11 +83,9 @@ create_options() {
 
 open_device_submenu() {
 	local submenu_options=""
-	local name=$(echo "$1" | cut -d "|" -f 1)
-	local mac=$(echo "$1" | cut -d "|" -f 2)
+	local name=$(echo "$1" | grep -oP ".*[^\s](?=(.*([A-Fa-f0-9]{2}\:?){6}))")
+	local mac=$(echo "$1" | grep -oP "([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})")
 	local option
-	previous_menu=$2
-	current_menu="$2_submenu"
 	echo "Previous menu: $previous_menu, current menu: $current_menu"
 
 	create_options "Connected: yes" "disconnect" "connect" 
